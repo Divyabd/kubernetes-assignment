@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  #replicas: 5
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: divyadockerhub1998/kubernetes-app
+        env:
+        - name: DB_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: postgress-configmap
+              key: db_server
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: postgress-configmap
+              key: postgres-db
+
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: postgress-configmap
+              key: postgres_user
+
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: postgress-configmap
+              key: postgres_pass
+
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kanban-app
+spec:
+  selector:
+    app: my-app
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+

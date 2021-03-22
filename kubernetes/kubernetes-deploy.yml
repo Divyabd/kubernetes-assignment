@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubewatch-deployment
+spec:
+  selector:
+    matchLabels:
+      app: kubewatch
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kubewatch
+    spec:
+      serviceAccountName: kubewatch
+      containers:
+      - image: tuna/kubewatch:v0.0.1
+        imagePullPolicy: Always
+        name: kubewatch
+        volumeMounts:
+        - name: config-volume
+          mountPath: /root
+      restartPolicy: Always
+      volumes:
+      - name: config-volume
+        configMap:
+          name: kubewatch

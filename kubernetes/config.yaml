@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgress-configmap
+data:
+  db_server: postgres-service
+  postgres-db: kanban
+  postgres_user: kanban
+  postgres_pass: Kanban@123456789
+
