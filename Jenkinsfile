@@ -4,11 +4,11 @@ pipeline{
     stages{
 
     
-        stage("docker build"){
-            steps{
-                sh "docker-compose up "
-            }
-        }
+    //    stage("docker build"){
+   //         steps{
+   //             sh "docker-compose up "
+  //          }
+  //      }
 
     stage("commiting the docker images"){
             steps{
