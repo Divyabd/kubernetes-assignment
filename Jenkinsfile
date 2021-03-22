@@ -20,7 +20,7 @@ pipeline{
         stage("pushing the images to docker hub"){
             steps{
                 withDockerRegistry([ credentialsId: "dockerhub", url: "" ]){
-                    sh "docker push divyadockerhub1998/kanban-ui"
+                    sh "docker push divyadockerhub1998/kanban-app"
                     sh "docker push divyadockerhub1998/kanban-ui"
                 }
             }
